@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Canvas</title>
+</head>
+<body>
+  <section class="bg-white dark:bg-gray-900">
+    <div class="container px-6 py-10 mx-auto">
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl dark:text-white">recent posts </h1>
+            <button class="focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600 transition-colors duration-300 transform dark:text-gray-400 hover:text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </button>
+        </div>
+        <hr class="my-8 border-gray-200 dark:border-gray-700">
+        <div class="grid  grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+            <% message?.forEach(element => { %>
+            <div class="max-w-2xl m-3 overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+                <img class="object-cover w-full h-64" src="<%=element.image%>" alt="Article">
+            
+                <div class="p-6">
+                    <div>
+                        <span class="text-xs font-medium text-blue-600 uppercase dark:text-blue-400"><%=element.category%></span>
+                        <a href="#" class="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:underline" tabindex="0" role="link"><%=element.title%></a>
+                        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400"><%=element.description%></div>
+            
+                    <div class="mt-4">
+                        <div class="flex items-center">
+                            <div class="flex items-center">
+                                <img class="object-cover h-10 rounded-full w-[35px] h-[35px]" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkcdP2kY22GQ9qAf6Dw9ohiHZhP6FWJzbqZQ4xDnt6YF9VHZzWCMk9QknU-g1IYu8HgFg&usqp=CAU" alt="Avatar">
+                                <a href="#" class="mx-2 font-semibold text-gray-700 dark:text-gray-200" tabindex="0" role="link"><%=element.name%></a>
+                            </div>
+                            <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">
+
+                                <%
+                                const getTimeAgo = (dateString) => {
+                                    const date = new Date(dateString);
+                                    const now = new Date();
+                                    const diff = now - date;
+                                    const seconds = Math.floor(diff / 1000);
+                                    const minutes = Math.floor(seconds / 60);
+                                    const hours = Math.floor(minutes / 60);
+                                    const days = Math.floor(hours / 24);
+                                
+                                    if (days > 0) {
+                                        return `${days} day${days > 1 ? 's' : ''} ago`;
+                                    } else if (hours > 0) {
+                                        return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+                                    } else if (minutes > 0) {
+                                        return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+                                    } else {
+                                        return `${seconds} second${seconds > 1 ? 's' : ''} ago`;
+                                    }
+                                };
+                                %>
+                                
+<%= getTimeAgo(element.createdAt) %>
+,
+<%= new Date(element.createdAt).toLocaleString('en-US', { weekday: 'long', hour: '2-digit', minute: '2-digit', second: '2-digit' }) %>
+
+                                
+                                </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<% } )%>
+
+        </div>
+
+    </div>
+</section>
+  </body>
+</html>

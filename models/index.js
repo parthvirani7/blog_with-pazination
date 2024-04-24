@@ -1,0 +1,1 @@
+module.exports.blogSchema = require("./blog.model")
